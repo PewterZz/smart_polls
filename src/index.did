@@ -1,0 +1,12 @@
+type Poll = record {
+  question: text;
+  options: vec<text>;
+  votes: vec<record {option: text; count: nat}>;
+};
+
+service : {
+  createPoll: (text, text, vec<text>) -> ();
+  vote: (text, text) -> ();
+  getPoll: (text) -> (variant {ok: Poll; err: text});
+  getPollResults: (text) -> (variant {ok: vec<record {option: text; count: nat}>; err: text});
+}

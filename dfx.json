@@ -1,0 +1,13 @@
+{
+    "canisters": {
+        "smart_polls": {
+            "type": "custom",
+            "main": "src/index.ts",
+            "candid": "src/index.did",
+            "build": "npx azle smart_polls",
+            "wasm": ".azle/smart_polls/smart_polls.wasm",
+            "gzip": true
+        }
+    }
+}
+
