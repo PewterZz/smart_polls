@@ -1,12 +1,32 @@
 type Poll = record {
-  question: text;
-  options: vec<text>;
-  votes: vec<record {option: text; count: nat}>;
+  question : text;
+  votes : vec text;
+  createdAt : nat64;
+  updatedAt : opt nat64;
+  options : vec text;
+  pollId : text;
 };
-
-service : {
-  createPoll: (text, text, vec<text>) -> ();
-  vote: (text, text) -> ();
-  getPoll: (text) -> (variant {ok: Poll; err: text});
-  getPollResults: (text) -> (variant {ok: vec<record {option: text; count: nat}>; err: text});
+type PollPayload = record {
+  question : text;
+  votes : vec text;
+  options : vec text;
+};
+type _AzleResult = variant { Ok : Poll; Err : text };
+type _AzleResult_1 = variant {
+  Ok : _InlineGetPollResultsReturnTypeTypeArg0;
+  Err : text;
+};
+type _InlineGetPollResultsReturnTypeTypeArg0 = variant {
+  ok : vec _InlineGetPollResultsReturnTypeTypeArg0Ok;
+  err : text;
+};
+type _InlineGetPollResultsReturnTypeTypeArg0Ok = record {
+  option : text;
+  count : int;
+};
+service : () -> {
+  createPoll : (PollPayload) -> (_AzleResult);
+  getPoll : (text) -> (_AzleResult) query;
+  getPollResults : (text) -> (_AzleResult_1) query;
+  vote : (text, text) -> (_AzleResult);
 }
